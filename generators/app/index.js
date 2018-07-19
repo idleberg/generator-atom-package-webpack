@@ -143,6 +143,46 @@ module.exports = class extends Generator {
         store: true
       },
       {
+        type: 'checkbox',
+        name: 'babelPresets',
+        message: 'Babel Presets',
+        choices: [
+          {
+            name: 'Env',
+            value: 'env',
+          },
+          {
+            name: 'Flow',
+            value: 'flow'
+          },
+          {
+            name: 'React',
+            value: 'react',
+          },
+          {
+            name: 'Stage-0',
+            value: 'stage-0',
+          },
+          {
+            name: 'Stage-1',
+            value: 'stage-1',
+          },
+          {
+            name: 'Stage-2',
+            value: 'stage-2',
+          },
+          {
+            name: 'Stage-3',
+            value: 'stage-3',
+          },
+          {
+            name: 'Stage-4',
+            value: 'stage-4',
+          }
+        ],
+        store: true
+      },
+      {
         type: 'list',
         name: 'linterHook',
         message: 'Linter hook',
@@ -279,6 +319,14 @@ module.exports = class extends Generator {
       this.fs.copyTpl(
         this.templatePath('_eslintrc.ejs'),
         this.destinationPath(`.eslintrc`),
+        {
+          pkg: props
+        }
+      );
+
+      this.fs.copyTpl(
+        this.templatePath('_babelrc.ejs'),
+        this.destinationPath(`.babelrc`),
         {
           pkg: props
         }

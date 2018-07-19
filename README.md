@@ -11,9 +11,10 @@ A [Yeoman](http://yeoman.io/authoring/user-interactions.html) generator for Atom
 **Features**
 
 - adds any [SPDX](https://spdx.org/licenses/) license
-- adds [CircleCI](https://circleci.com) configuration
+- adds [CircleCI](https://circleci.com/) configuration
 - adds [Travis CI](https://travis-ci.org/) configuration
 - adds [ESLint](https://eslint.org/) configuration
+- adds [Babel](https://babeljs.io/) presets
 
 ## Installation
 

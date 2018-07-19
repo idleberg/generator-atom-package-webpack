@@ -1,6 +1,6 @@
 {
   "name": "generator-atom-package-webpack",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Generator for Atom packages written in JavaScript and compiled using Webpack",
   "files": [
     "generators"

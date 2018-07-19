@@ -333,7 +333,13 @@ module.exports = class extends Generator {
       );
 
       // Install latest versions of dependencies
-      this.yarnInstall(['babel-core', 'babel-loader', 'webpack', 'webpack-cli']);
+      const dependencies = ['babel-core', 'babel-loader', 'webpack', 'webpack-cli'];
+
+      props.babelPresets.forEach( preset => {
+        dependencies.push(`babel-preset-${preset}`);
+      });
+
+      this.yarnInstall(dependencies);
       this.yarnInstall([ 'babel-eslint', 'eslint', `eslint-config-${props.eslintConfig}`, 'eslint-plugin-node', 'husky'], { 'dev': true, ignoreScripts: true });
 
       // Initialize git repository

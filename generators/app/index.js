@@ -93,8 +93,8 @@ module.exports = class extends Generator {
       },
       {
         type: 'list',
-        name: 'buildTime',
-        message: 'buildTime',
+        name: 'buildScript',
+        message: 'Build Script',
         default: 'prepublishOnly',
         choices: [
           {
@@ -111,7 +111,7 @@ module.exports = class extends Generator {
       {
         type: 'list',
         name: 'linterHook',
-        message: 'Linter hook',
+        message: 'Linter Hook',
         default: 'precommit',
         choices: [
           {
@@ -288,13 +288,13 @@ module.exports = class extends Generator {
         }
       );
 
-      if (props.buildTime === props.linterHook) {
+      if (props.buildScript === props.linterHook) {
         props.scripts = [
           '"prepublishOnly": "npm run lint && npm run build"'
         ];
       } else {
         props.scripts = [
-          `"${props.buildTime}": "npm run build"`,
+          `"${props.buildScript}": "npm run build"`,
           `"${props.linterHook}": "npm run lint"`
         ];
       }
@@ -364,7 +364,7 @@ module.exports = class extends Generator {
         dependencies.push(`babel-preset-${preset}`);
       });
 
-      if (props.buildTime === 'prepublishOnly') {
+      if (props.buildScript === 'prepublishOnly') {
         devDependencies = devDependencies.concat(dependencies)
       } else {
         this.yarnInstall(dependencies, { ignoreScripts: true });

@@ -92,6 +92,44 @@ module.exports = class extends Generator {
         default: true
       },
       {
+        type: 'list',
+        name: 'buildTime',
+        message: 'buildTime',
+        default: 'prepublishOnly',
+        choices: [
+          {
+            name: 'postinstall',
+            value: 'postinstall',
+          },
+          {
+            name: 'prepublishOnly',
+            value: 'prepublishOnly',
+          }
+        ],
+        store: true
+      },
+      {
+        type: 'list',
+        name: 'linterHook',
+        message: 'Linter hook',
+        default: 'precommit',
+        choices: [
+          {
+            name: 'precommit',
+            value: 'precommit',
+          },
+          {
+            name: 'prepush',
+            value: 'prepush',
+          },
+          {
+            name: 'prepublishOnly',
+            value: 'prepublishOnly'
+          }
+        ],
+        store: true
+      },
+      {
         type: 'checkbox',
         name: 'addConfig',
         message: 'Add configuration',
@@ -148,10 +186,6 @@ module.exports = class extends Generator {
         message: 'Babel Presets',
         choices: [
           {
-            name: 'Env',
-            value: 'env',
-          },
-          {
             name: 'Flow',
             value: 'flow'
           },
@@ -178,27 +212,6 @@ module.exports = class extends Generator {
           {
             name: 'Stage-4',
             value: 'stage-4',
-          }
-        ],
-        store: true
-      },
-      {
-        type: 'list',
-        name: 'linterHook',
-        message: 'Linter hook',
-        default: 'precommit',
-        choices: [
-          {
-            name: 'precommit',
-            value: 'precommit',
-          },
-          {
-            name: 'prepush',
-            value: 'prepush',
-          },
-          {
-            name: 'prepublishOnly',
-            value: 'prepublishOnly'
           }
         ],
         store: true
@@ -275,6 +288,17 @@ module.exports = class extends Generator {
         }
       );
 
+      if (props.buildTime === props.linterHook) {
+        props.scripts = [
+          '"prepublishOnly": "npm run lint && npm run build"'
+        ];
+      } else {
+        props.scripts = [
+          `"${props.buildTime}": "npm run build"`,
+          `"${props.linterHook}": "npm run lint"`
+        ];
+      }
+
       this.fs.copyTpl(
         this.templatePath('package.json.ejs'),
         this.destinationPath('package.json'),
@@ -333,14 +357,19 @@ module.exports = class extends Generator {
       );
 
       // Install latest versions of dependencies
-      const dependencies = ['babel-core', 'babel-loader', 'webpack', 'webpack-cli'];
+      const dependencies = ['babel-core', 'babel-loader', 'babel-preset-env', 'webpack', 'webpack-cli'];
+      let devDependencies = [ 'babel-eslint', 'eslint', `eslint-config-${props.eslintConfig}`, 'eslint-plugin-node', 'husky'];
 
       props.babelPresets.forEach( preset => {
         dependencies.push(`babel-preset-${preset}`);
       });
 
-      this.yarnInstall(dependencies);
-      this.yarnInstall([ 'babel-eslint', 'eslint', `eslint-config-${props.eslintConfig}`, 'eslint-plugin-node', 'husky'], { 'dev': true, ignoreScripts: true });
+      if (props.buildTime === 'prepublishOnly') {
+        devDependencies = devDependencies.concat(dependencies)
+      } else {
+        this.yarnInstall(dependencies, { ignoreScripts: true });
+      }
+      this.yarnInstall(devDependencies, { 'dev': true });
 
       // Initialize git repository
       if (props.initGit) {

@@ -1,9 +1,9 @@
 # generator-atom-package-webpack
 
-[![npm](https://img.shields.io/npm/l/generator-atom-package-webpack.svg?style=flat-square)](https://www.npmjs.org/package/generator-atom-package-webpack)
-[![npm](https://img.shields.io/npm/v/generator-atom-package-webpack.svg?style=flat-square)](https://www.npmjs.org/package/generator-atom-package-webpack)
-[![CircleCI](https://img.shields.io/circleci/project/idleberg/generator-atom-package-webpack.svg?style=flat-square)](https://circleci.com/gh/idleberg/generator-atom-package-webpack)
-[![David](https://img.shields.io/david/idleberg/generator-atom-package-webpack.svg?style=flat-square)](https://david-dm.org/idleberg/generator-atom-package-webpack)
+[![npm](https://flat.badgen.net/npm/license/generator-atom-package-webpack)](https://www.npmjs.org/package/generator-atom-package-webpack)
+[![npm](https://flat.badgen.net/npm/v/generator-atom-package-webpack)](https://www.npmjs.org/package/generator-atom-package-webpack)
+[![CircleCI](https://flat.badgen.net/circleci/github/idleberg/generator-atom-package-webpack)](https://circleci.com/gh/idleberg/generator-atom-package-webpack)
+[![David](https://flat.badgen.net/david/dep/idleberg/generator-atom-package-webpack)](https://david-dm.org/idleberg/generator-atom-package-webpack)
 
 ## Description
 

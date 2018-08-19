@@ -27,7 +27,7 @@ yarn global add generator-atom-package-webpack || npm i generator-atom-package-w
 
 ## Usage
 
-Run the generator and follow its instructions
+Run the generator and follow its instructions. Use `--help`to list available flags.
 
 ```sh
 yo atom-package-webpack

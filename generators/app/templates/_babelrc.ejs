@@ -1,0 +1,13 @@
+{
+    "presets": [
+        [
+            "env", {
+                "targets": {
+                    "electron": "2.0.0",
+                },
+                "useBuiltIns": true,
+            }
+        ]<% pkg.babelPresets.forEach( preset => {  %>,
+        <%- JSON.stringify(preset) %><% }) %>
+    ],
+}

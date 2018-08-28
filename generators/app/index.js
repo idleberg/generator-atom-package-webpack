@@ -5,13 +5,14 @@ const fs = require('fs');
 const mkdirp = require('mkdirp');
 const slugify = require('@sindresorhus/slugify');
 const spdxLicenseList = require('spdx-license-list/full');
+const terminalLink = require('terminal-link');
 const updateNotifier = require('update-notifier');
 
 // Create array of license choices
 const spdxCodes = Object.getOwnPropertyNames(spdxLicenseList).sort();
 const licenseChoices = spdxCodes.map(obj =>{
    const licenses = {};
-   licenses['value'] = obj;
+   licenses['value'] = terminalLink(obj, `https://spdx.org/licenses/${obj}.html`);
 
    return licenses;
 })
@@ -151,12 +152,12 @@ module.exports = class extends Generator {
         store: true,
         choices: [
           {
-            name: 'Circle CI',
+            name: terminalLink('Circle CI', 'https://circleci.com/'),
             value: 'circleCI',
             checked: false
           },
           {
-            name: 'Travis CI',
+            name: terminalLink('Travis CI', 'https://travis-ci.org/'),
             value: 'travisCI',
             checked: false
           }
@@ -169,28 +170,48 @@ module.exports = class extends Generator {
         store: true,
         choices: [
           {
-            name: 'Airbnb',
+            name: terminalLink('Airbnb', 'https://www.npmjs.com/package/eslint-config-airbnb'),
             value: 'airbnb',
           },
           {
-            name: 'ESLint',
+            name: terminalLink('ESLint', 'https://www.npmjs.com/package/eslint-config-eslint'),
             value: 'eslint',
           },
           {
-            name: 'Google',
+            name: terminalLink('Google', 'https://www.npmjs.com/package/eslint-config-google'),
             value: 'google',
           },
           {
-            name: 'Idiomatic',
+            name: terminalLink('Idiomatic', 'https://www.npmjs.com/package/eslint-config-idiomatic'),
             value: 'idiomatic',
           },
           {
-            name: 'Prettier',
+            name: terminalLink('Prettier', 'https://www.npmjs.com/package/eslint-config-prettier'),
             value: 'prettier',
           },
           {
-            name: 'Standard',
+            name: terminalLink('Semistandard', 'https://www.npmjs.com/package/eslint-config-semistandard'),
+            value: 'semistandard',
+          },
+          {
+            name: terminalLink('Shopify', 'https://www.npmjs.com/package/eslint-config-shopify'),
+            value: 'shopify',
+          },
+          {
+            name: terminalLink('Standard', 'https://www.npmjs.com/package/eslint-config-standard'),
             value: 'standard',
+          },
+          {
+            name: terminalLink('Vue', 'https://www.npmjs.com/package/eslint-config-vue'),
+            value: 'vue',
+          },
+          {
+            name: terminalLink('WordPress', 'https://www.npmjs.com/package/eslint-config-wordpress'),
+            value: 'wordpress',
+          },
+          {
+            name: terminalLink('XO', 'https://www.npmjs.com/package/eslint-config-xo'),
+            value: 'xo',
           }
         ]
       },
@@ -201,31 +222,35 @@ module.exports = class extends Generator {
         store: true,
         choices: [
           {
-            name: 'Flow',
+            name: terminalLink('Env', 'https://www.npmjs.com/package/@babel/preset-env'),
+            value: 'env'
+          },
+          {
+            name: terminalLink('Flow', 'https://www.npmjs.com/package/@babel/preset-flow'),
             value: 'flow'
           },
           {
-            name: 'React',
+            name: terminalLink('React', 'https://www.npmjs.com/package/@babel/preset-react'),
             value: 'react',
           },
           {
-            name: 'Stage-0',
+            name: terminalLink('Stage-0', 'https://www.npmjs.com/package/@babel/preset-stage-0'),
             value: 'stage-0',
           },
           {
-            name: 'Stage-1',
+            name: terminalLink('Stage-1', 'https://www.npmjs.com/package/@babel/preset-stage-1'),
             value: 'stage-1',
           },
           {
-            name: 'Stage-2',
+            name: terminalLink('Stage-2', 'https://www.npmjs.com/package/@babel/preset-stage-2'),
             value: 'stage-2',
           },
           {
-            name: 'Stage-3',
+            name: terminalLink('Stage-3', 'https://www.npmjs.com/package/@babel/preset-stage-3'),
             value: 'stage-3',
           },
           {
-            name: 'Stage-4',
+            name: terminalLink('Stage-4', 'https://www.npmjs.com/package/@babel/preset-stage-4'),
             value: 'stage-4',
           }
         ]
@@ -372,10 +397,10 @@ module.exports = class extends Generator {
 
       // Install latest versions of dependencies
       const dependencies = ['babel-core', 'babel-loader', 'babel-preset-env', 'webpack', 'webpack-cli'];
-      let devDependencies = [ 'babel-eslint', 'eslint', `eslint-config-${props.eslintConfig}`, 'eslint-plugin-node', 'husky'];
+      let devDependencies = [ 'babel-eslint', 'eslint', props.eslintConfig, 'eslint-plugin-node', 'husky'];
 
       props.babelPresets.forEach( preset => {
-        dependencies.push(`babel-preset-${preset}`);
+        dependencies.push(`@babel/preset-${preset}`);
       });
 
       if (props.buildScript === 'prepublishOnly') {

@@ -7,7 +7,7 @@
 
 ## Description
 
-A [Yeoman](http://yeoman.io/authoring/user-interactions.html) generator for Atom packages written in JavaScript and compiled using Webpack. This is meant as an experiment, hoping to [reduce activation time](https://discuss.atom.io/t/package-activatetime/56808/14) of the package.
+A [Yeoman](http://yeoman.io/authoring/user-interactions.html) generator for Atom packages written in JavaScript and compiled using Webpack. This is meant as an experiment, hoping to [reduce activation time](https://discuss.atom.io/t/package-activatetime/56808/14) of the package. Based on configuration setup by [@jneuendorf](https://github.com/jneuendorf/).
 
 **Features**
 

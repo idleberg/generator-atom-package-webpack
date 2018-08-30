@@ -1,6 +1,7 @@
 const Generator = require('yeoman-generator');
 const pkg = require('../../package.json');
 
+const axios = require('axios');
 const fs = require('fs');
 const gitUserName = require('git-user-name');
 const mkdirp = require('mkdirp');
@@ -115,6 +116,42 @@ module.exports = class extends Generator {
         message: 'Add activation command?',
         default: true,
         store: true
+      },
+      {
+        type: 'confirm',
+        name: 'atomDependenciesQuestion',
+        message: 'Add Atom dependencies?',
+        default: false,
+        store: true
+      },
+      {
+        name: 'atomDependencies',
+        message: 'Specify Atom packages (comma-separated)',
+        store: true,
+        when: answers => (answers.atomDependenciesQuestion) ? true : false,
+        validate: async str => {
+          if (str.trim().length === 0) {
+            return 'You need to specify at least one package';
+          }
+
+          const packages = str.split(',');
+
+          for(let pkg of packages) {
+            pkg = pkg.trim();
+
+            if (pkg.length > 241) {
+              return 'The package name must be less than or equal to 214 characters';
+            }
+
+            try {
+              await axios.get(`https://atom.io/api/packages/${pkg}`);
+            } catch(e) {
+              return `The package '${pkg}' could not be found`;
+            }
+          }
+
+          return true;
+        }
       },
       {
         type: 'list',
@@ -276,6 +313,10 @@ module.exports = class extends Generator {
       props.licenseName = spdxLicenseList[props.license].name;
       props.licenseText = spdxLicenseList[props.license].licenseText.replace(/\n{3,}/g, '\n\n');
       props.repositoryName = (props.name.startsWith('atom-')) ? props.name : `atom-${props.name}`;
+      props.atomDependencies = props.atomDependencies.split(',');
+      props.atomDependencies.map(dependency => dependency.trim());
+
+      console.log(props.atomDependencies);
 
       // Copying files
       props.features.forEach( feature => {

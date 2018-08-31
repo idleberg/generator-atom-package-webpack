@@ -1,5 +1,5 @@
 const Generator = require('yeoman-generator');
-const pkg = require('../../package.json');
+const meta = require('../../package.json');
 
 const axios = require('axios');
 const fs = require('fs');
@@ -21,7 +21,7 @@ const licenseChoices = spdxCodes.map(obj =>{
 })
 
 // Is there a newer version of this generator?
-updateNotifier({ pkg: pkg }).notify();
+updateNotifier({ pkg: meta }).notify();
 
 module.exports = class extends Generator {
   constructor(args, opts) {
@@ -120,7 +120,7 @@ module.exports = class extends Generator {
       {
         type: 'confirm',
         name: 'atomDependenciesQuestion',
-        message: 'Add Atom dependencies?',
+        message: 'Depend on other Atom packages?',
         default: false,
         store: true
       },
@@ -135,19 +135,16 @@ module.exports = class extends Generator {
           }
 
           const packages = str.split(',');
+          const promises = [];
 
-          for(let pkg of packages) {
-            pkg = pkg.trim();
+          for (var pkg of packages) {
+            promises.push(axios.get(`https://atom.io/api/packages/${pkg}`));
+          }
 
-            if (pkg.length > 241) {
-              return 'The package name must be less than or equal to 214 characters';
-            }
-
-            try {
-              await axios.get(`https://atom.io/api/packages/${pkg}`);
-            } catch(e) {
-              return `The package '${pkg}' could not be found`;
-            }
+          try {
+            await Promise.all(promises); // responses will be an array
+          } catch (err) {
+            return `The package '${pkg}' could not be found`;
           }
 
           return true;
@@ -316,8 +313,6 @@ module.exports = class extends Generator {
       props.atomDependencies = props.atomDependencies.split(',');
       props.atomDependencies.map(dependency => dependency.trim());
 
-      console.log(props.atomDependencies);
-
       // Copying files
       props.features.forEach( feature => {
         mkdirp(feature);
@@ -448,7 +443,11 @@ module.exports = class extends Generator {
 
       // Install latest versions of dependencies
       const dependencies = ['babel-core', 'babel-loader', 'babel-preset-env', 'webpack', 'webpack-cli'];
-      let devDependencies = [ 'babel-eslint', 'eslint', props.eslintConfig, 'eslint-plugin-node', 'husky'];
+      let devDependencies = [ 'babel-eslint', 'eslint', `eslint-config-${props.eslintConfig}`, 'eslint-plugin-node', 'husky'];
+
+      if (typeof props.atomDependencies !== 'undefined' && props.atomDependencies.length > 0) {
+        dependencies.push('atom-package-deps');
+      }
 
       props.babelPresets.forEach( preset => {
         dependencies.push(`@babel/preset-${preset}`);

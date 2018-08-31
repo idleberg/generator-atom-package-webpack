@@ -310,8 +310,11 @@ module.exports = class extends Generator {
       props.licenseName = spdxLicenseList[props.license].name;
       props.licenseText = spdxLicenseList[props.license].licenseText.replace(/\n{3,}/g, '\n\n');
       props.repositoryName = (props.name.startsWith('atom-')) ? props.name : `atom-${props.name}`;
-      props.atomDependencies = props.atomDependencies.split(',');
-      props.atomDependencies.map(dependency => dependency.trim());
+
+      if (typeof props.atomDependencies !== 'undefined') {
+        props.atomDependencies = props.atomDependencies.split(',');
+        props.atomDependencies.map(dependency => dependency.trim());
+      }
 
       // Copying files
       props.features.forEach( feature => {
@@ -442,12 +445,8 @@ module.exports = class extends Generator {
       );
 
       // Install latest versions of dependencies
-      const dependencies = ['babel-core', 'babel-loader', 'babel-preset-env', 'webpack', 'webpack-cli'];
+      const dependencies = ['@babel/core', '@babel/preset-env', 'babel-loader', 'webpack', 'webpack-cli'];
       let devDependencies = [ 'babel-eslint', 'eslint', `eslint-config-${props.eslintConfig}`, 'eslint-plugin-node', 'husky'];
-
-      if (typeof props.atomDependencies !== 'undefined' && props.atomDependencies.length > 0) {
-        dependencies.push('atom-package-deps');
-      }
 
       props.babelPresets.forEach( preset => {
         dependencies.push(`@babel/preset-${preset}`);
@@ -455,7 +454,13 @@ module.exports = class extends Generator {
 
       if (props.buildScript === 'prepublishOnly') {
         devDependencies = devDependencies.concat(dependencies)
+        if (typeof props.atomDependencies !== 'undefined' && props.atomDependencies.length > 0) {
+          this.yarnInstall(['atom-package-deps'], { ignoreScripts: true });
+        }
       } else {
+        if (typeof props.atomDependencies !== 'undefined' && props.atomDependencies.length > 0) {
+          dependencies.push('atom-package-deps');
+        }
         this.yarnInstall(dependencies, { ignoreScripts: true });
       }
       this.yarnInstall(devDependencies, { 'dev': true });

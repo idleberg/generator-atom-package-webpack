@@ -265,10 +265,6 @@ module.exports = class extends Generator {
         store: true,
         choices: [
           {
-            name: terminalLink('Env', 'https://www.npmjs.com/package/@babel/preset-env'),
-            value: 'env'
-          },
-          {
             name: terminalLink('Flow', 'https://www.npmjs.com/package/@babel/preset-flow'),
             value: 'flow'
           },

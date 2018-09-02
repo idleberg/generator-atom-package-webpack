@@ -14,7 +14,7 @@ const updateNotifier = require('update-notifier');
 const spdxCodes = Object.getOwnPropertyNames(spdxLicenseList).sort();
 const licenseChoices = spdxCodes.map(obj =>{
    const licenses = {};
-   licenses['name'] = terminalLink(obj, `https://spdx.org/licenses/${obj}.html`);
+   licenses['name'] = terminalLink(obj, `https://spdx.org/licenses/${obj}.html`, { fallback: obj });
    licenses['value'] = obj;
 
    return licenses;
@@ -195,12 +195,12 @@ module.exports = class extends Generator {
         store: true,
         choices: [
           {
-            name: terminalLink('Circle CI', 'https://circleci.com/'),
+            name: terminalLink('Circle CI', 'https://circleci.com/', { fallback: 'Circle CI' }),
             value: 'circleCI',
             checked: false
           },
           {
-            name: terminalLink('Travis CI', 'https://travis-ci.org/'),
+            name: terminalLink('Travis CI', 'https://travis-ci.org/', { fallback: 'Travis CI' }),
             value: 'travisCI',
             checked: false
           }
@@ -213,47 +213,47 @@ module.exports = class extends Generator {
         store: true,
         choices: [
           {
-            name: terminalLink('Airbnb', 'https://www.npmjs.com/package/eslint-config-airbnb'),
+            name: terminalLink('Airbnb', 'https://www.npmjs.com/package/eslint-config-airbnb', { fallback: 'Airbnb' }),
             value: 'airbnb',
           },
           {
-            name: terminalLink('ESLint', 'https://www.npmjs.com/package/eslint-config-eslint'),
+            name: terminalLink('ESLint', 'https://www.npmjs.com/package/eslint-config-eslint', { fallback: 'ESLint' }),
             value: 'eslint',
           },
           {
-            name: terminalLink('Google', 'https://www.npmjs.com/package/eslint-config-google'),
+            name: terminalLink('Google', 'https://www.npmjs.com/package/eslint-config-google', { fallback: 'Google' }),
             value: 'google',
           },
           {
-            name: terminalLink('Idiomatic', 'https://www.npmjs.com/package/eslint-config-idiomatic'),
+            name: terminalLink('Idiomatic', 'https://www.npmjs.com/package/eslint-config-idiomatic', { fallback: 'Idiomatic' }),
             value: 'idiomatic',
           },
           {
-            name: terminalLink('Prettier', 'https://www.npmjs.com/package/eslint-config-prettier'),
+            name: terminalLink('Prettier', 'https://www.npmjs.com/package/eslint-config-prettier', { fallback: 'Prettier' }),
             value: 'prettier',
           },
           {
-            name: terminalLink('Semistandard', 'https://www.npmjs.com/package/eslint-config-semistandard'),
+            name: terminalLink('Semistandard', 'https://www.npmjs.com/package/eslint-config-semistandard', { fallback: 'Semistandard' }),
             value: 'semistandard',
           },
           {
-            name: terminalLink('Shopify', 'https://www.npmjs.com/package/eslint-config-shopify'),
+            name: terminalLink('Shopify', 'https://www.npmjs.com/package/eslint-config-shopify', { fallback: 'Shopify' }),
             value: 'shopify',
           },
           {
-            name: terminalLink('Standard', 'https://www.npmjs.com/package/eslint-config-standard'),
+            name: terminalLink('Standard', 'https://www.npmjs.com/package/eslint-config-standard', { fallback: 'Standard' }),
             value: 'standard',
           },
           {
-            name: terminalLink('Vue', 'https://www.npmjs.com/package/eslint-config-vue'),
+            name: terminalLink('Vue', 'https://www.npmjs.com/package/eslint-config-vue', { fallback: 'Vue' }),
             value: 'vue',
           },
           {
-            name: terminalLink('WordPress', 'https://www.npmjs.com/package/eslint-config-wordpress'),
+            name: terminalLink('WordPress', 'https://www.npmjs.com/package/eslint-config-wordpress', { fallback: 'WordPress' }),
             value: 'wordpress',
           },
           {
-            name: terminalLink('XO', 'https://www.npmjs.com/package/eslint-config-xo'),
+            name: terminalLink('XO', 'https://www.npmjs.com/package/eslint-config-xo', { fallback: 'XO' }),
             value: 'xo',
           }
         ]
@@ -265,31 +265,31 @@ module.exports = class extends Generator {
         store: true,
         choices: [
           {
-            name: terminalLink('Flow', 'https://www.npmjs.com/package/@babel/preset-flow'),
+            name: terminalLink('Flow', 'https://www.npmjs.com/package/@babel/preset-flow', { fallback: 'Flow' }),
             value: 'flow'
           },
           {
-            name: terminalLink('React', 'https://www.npmjs.com/package/@babel/preset-react'),
+            name: terminalLink('React', 'https://www.npmjs.com/package/@babel/preset-react', { fallback: 'React' }),
             value: 'react',
           },
           {
-            name: terminalLink('Stage-0', 'https://www.npmjs.com/package/@babel/preset-stage-0'),
+            name: terminalLink('Stage-0', 'https://www.npmjs.com/package/@babel/preset-stage-0', { fallback: 'Stage-0' }),
             value: 'stage-0',
           },
           {
-            name: terminalLink('Stage-1', 'https://www.npmjs.com/package/@babel/preset-stage-1'),
+            name: terminalLink('Stage-1', 'https://www.npmjs.com/package/@babel/preset-stage-1', { fallback: 'Stage-1' }),
             value: 'stage-1',
           },
           {
-            name: terminalLink('Stage-2', 'https://www.npmjs.com/package/@babel/preset-stage-2'),
+            name: terminalLink('Stage-2', 'https://www.npmjs.com/package/@babel/preset-stage-2', { fallback: 'Stage-2' }),
             value: 'stage-2',
           },
           {
-            name: terminalLink('Stage-3', 'https://www.npmjs.com/package/@babel/preset-stage-3'),
+            name: terminalLink('Stage-3', 'https://www.npmjs.com/package/@babel/preset-stage-3', { fallback: 'Stage-3' }),
             value: 'stage-3',
           },
           {
-            name: terminalLink('Stage-4', 'https://www.npmjs.com/package/@babel/preset-stage-4'),
+            name: terminalLink('Stage-4', 'https://www.npmjs.com/package/@babel/preset-stage-4', { fallback: 'Stage-4' }),
             value: 'stage-4',
           }
         ]

@@ -16,7 +16,7 @@ A [Yeoman](http://yeoman.io/authoring/user-interactions.html) generator for Atom
 - adds [Travis CI](https://travis-ci.org/) configuration
 - adds [ESLint](https://eslint.org/) configuration
 - adds [Babel](https://babeljs.io/) presets
-- adds Atom package dependencies
+- adds [Atom package dependencies](https://www.npmjs.com/search?q=atom%20package%20deps)
 
 ## Installation
 

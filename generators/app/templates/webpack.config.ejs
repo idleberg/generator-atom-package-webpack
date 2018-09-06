@@ -1,26 +1,30 @@
-const { resolve } = require('path')
+const { resolve } = require('path');
 
 module.exports = {
-    target: 'electron-main',
-    context: __dirname,
-    entry: './src/<%= pkg.name %>.js',
-    output: {
-        filename: '<%= pkg.name %>.js',
-        path: resolve(__dirname, 'lib'),
-        libraryTarget: 'commonjs2',
-        libraryExport: 'default',
-    },
-    externals: {
-        atom: 'atom',
-        remote: 'remote'
-    },
-    module: {
-        rules: [ {
-            test: /.js$/,
-            exclude: /node_modules/,
-            use: [{
-                loader: 'babel-loader'
-            }]
-        }],
-    },
-}
+<%= pkg.ws %>target: 'electron-main',
+<%= pkg.ws %>context: __dirname,
+<%= pkg.ws %>entry: './src/<%= pkg.name %>.js',
+<%= pkg.ws %>output: {
+<%= pkg.ws %><%= pkg.ws %>filename: '<%= pkg.name %>.js',
+<%= pkg.ws %><%= pkg.ws %>path: resolve(__dirname, 'lib'),
+<%= pkg.ws %><%= pkg.ws %>libraryTarget: 'commonjs2',
+<%= pkg.ws %><%= pkg.ws %>libraryExport: 'default'
+<%= pkg.ws %>},
+<%= pkg.ws %>externals: {
+<%= pkg.ws %><%= pkg.ws %>atom: 'atom',
+<%= pkg.ws %><%= pkg.ws %>remote: 'remote'
+<%= pkg.ws %>},
+<%= pkg.ws %>module: {
+<%= pkg.ws %><%= pkg.ws %>rules: [
+<%= pkg.ws %><%= pkg.ws %><%= pkg.ws %>{
+<%= pkg.ws %><%= pkg.ws %><%= pkg.ws %><%= pkg.ws %>test: /.js$/,
+<%= pkg.ws %><%= pkg.ws %><%= pkg.ws %><%= pkg.ws %>exclude: /node_modules/,
+<%= pkg.ws %><%= pkg.ws %><%= pkg.ws %><%= pkg.ws %>use: [
+<%= pkg.ws %><%= pkg.ws %><%= pkg.ws %><%= pkg.ws %><%= pkg.ws %>{
+<%= pkg.ws %><%= pkg.ws %><%= pkg.ws %><%= pkg.ws %><%= pkg.ws %><%= pkg.ws %>loader: 'babel-loader'
+<%= pkg.ws %><%= pkg.ws %><%= pkg.ws %><%= pkg.ws %><%= pkg.ws %>}
+<%= pkg.ws %><%= pkg.ws %><%= pkg.ws %><%= pkg.ws %>]
+<%= pkg.ws %><%= pkg.ws %><%= pkg.ws %>}
+<%= pkg.ws %><%= pkg.ws %>]
+<%= pkg.ws %>}
+};

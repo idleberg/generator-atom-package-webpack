@@ -396,6 +396,24 @@ module.exports = class extends Generator {
         props.atomDependencies.map(dependency => dependency.trim());
       }
 
+      switch (props.eslintConfig) {
+        case 'eslint':
+          props.indent_style = 'space';
+          props.indent_size = 4;
+          props.ws = '    ';
+          break;
+        case 'wordpress':
+        case 'xo':
+          props.indent_style = 'tab';
+          props.ws = '\t';
+          break;
+        default:
+          props.indent_style = 'space';
+          props.indent_size = 2;
+          props.ws = '  ';
+          break;
+      }
+
       // Copying files
       props.features.forEach( feature => {
         mkdirp(feature);
@@ -491,8 +509,11 @@ module.exports = class extends Generator {
       }
 
       this.fs.copyTpl(
-        this.templatePath('_editorconfig'),
-        this.destinationPath('.editorconfig')
+        this.templatePath('_editorconfig.ejs'),
+        this.destinationPath('.editorconfig'),
+        {
+          pkg: props
+        }
       );
 
       this.fs.copyTpl(

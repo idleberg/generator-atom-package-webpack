@@ -1,26 +1,26 @@
 const { resolve } = require('path')
 
 module.exports = {
-  target: 'electron-main',
-  context: __dirname,
-  entry: './src/<%= pkg.name %>.js',
-  output: {
-    filename: '<%= pkg.name %>.js',
-    path: resolve(__dirname, 'lib'),
-    libraryTarget: 'commonjs2',
-    libraryExport: 'default',
-  },
-  externals: {
-    atom: 'atom',
-    remote: 'remote'
-  },
-  module: {
-    rules: [ {
-      test: /.js$/,
-      exclude: /node_modules/,
-      use: [{
-        loader: 'babel-loader'
-      }]
-    }],
-  },
+    target: 'electron-main',
+    context: __dirname,
+    entry: './src/<%= pkg.name %>.js',
+    output: {
+        filename: '<%= pkg.name %>.js',
+        path: resolve(__dirname, 'lib'),
+        libraryTarget: 'commonjs2',
+        libraryExport: 'default',
+    },
+    externals: {
+        atom: 'atom',
+        remote: 'remote'
+    },
+    module: {
+        rules: [ {
+            test: /.js$/,
+            exclude: /node_modules/,
+            use: [{
+                loader: 'babel-loader'
+            }]
+        }],
+    },
 }

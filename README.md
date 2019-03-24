@@ -23,7 +23,7 @@ A [Yeoman](http://yeoman.io/authoring/user-interactions.html) generator for Atom
 Use your preferred [Node](https://nodejs.org/) package manager to install the CLI tool
 
 ```sh
-yarn global add generator-atom-package-webpack || npm i generator-atom-package-webpack -g
+npm i generator-atom-package-webpack -g
 ```
 
 ## Usage

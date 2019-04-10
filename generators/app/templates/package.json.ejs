@@ -5,6 +5,7 @@
     "description": "<%= pkg.description %>",
     "scripts": {
         "build": "webpack --mode production",
+        "dev": "webpack --watch --mode development",
         "lint": "eslint src/*.js",<% pkg.scripts.forEach( script => {  %>
         <%- script %>,<% }) %>
         "test": "echo \"Error: no test specified\" && exit 1"

@@ -94,7 +94,17 @@ module.exports = class extends Generator {
       {
         name: 'author',
         message: 'What\'s your GitHub username?',
-        default: async () => await this.user.github.username(),
+        default: async () => {
+          let username;
+
+          try {
+            username = await this.user.github.username();
+          } catch (error) {
+            username = '';
+          }
+
+          return username;
+        },
         store: true,
         validate: x => x.length > 0 ? true : 'You have to provide a username',
         when: () => !this.options.org

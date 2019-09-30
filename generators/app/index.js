@@ -240,10 +240,75 @@ module.exports = class extends Generator {
           }
         ]
       },
+      ,
+      {
+        type: 'checkbox',
+        name: 'babelPresets',
+        message: 'Babel Presets',
+        store: true,
+        choices: [
+          {
+            name: terminalLink('Flow', 'https://www.npmjs.com/package/@babel/preset-flow', {
+              fallback() {
+                return 'Flow';
+              }
+            }),
+            value: 'flow'
+          },
+          {
+            name: terminalLink('React', 'https://www.npmjs.com/package/@babel/preset-react', {
+              fallback() {
+                return 'React';
+              }
+            }),
+            value: 'react',
+          },
+          {
+            name: terminalLink('Stage-0', 'https://www.npmjs.com/package/@babel/preset-stage-0', {
+              fallback() {
+                return 'Stage-0';
+              }
+            }),
+            value: 'stage-0',
+          },
+          {
+            name: terminalLink('Stage-1', 'https://www.npmjs.com/package/@babel/preset-stage-1', {
+              fallback() {
+                return 'Stage-1';
+              }
+            }),
+            value: 'stage-1',
+          },
+          {
+            name: terminalLink('Stage-2', 'https://www.npmjs.com/package/@babel/preset-stage-2', {
+              fallback() {
+                return 'Stage-2';
+              }
+            }),
+            value: 'stage-2',
+          },
+          {
+            name: terminalLink('Stage-3', 'https://www.npmjs.com/package/@babel/preset-stage-3', {
+              fallback() {
+                return 'Stage-3';
+              }
+            }),
+            value: 'stage-3',
+          },
+          {
+            name: terminalLink('Stage-4', 'https://www.npmjs.com/package/@babel/preset-stage-4', {
+              fallback() {
+                return 'Stage-4';
+              }
+            }),
+            value: 'stage-4',
+          }
+        ]
+      },
       {
         type: 'list',
         name: 'eslintConfig',
-        message: 'ESLint style guide',
+        message: 'ESLint Configuration',
         store: true,
         choices: [
           {
@@ -336,67 +401,84 @@ module.exports = class extends Generator {
           }
         ]
       },
+
       {
-        type: 'checkbox',
-        name: 'babelPresets',
-        message: 'Babel Presets',
+        type: 'list',
+        name: 'stylelintConfig',
+        message: 'Stylelint Configuration',
         store: true,
         choices: [
           {
-            name: terminalLink('Flow', 'https://www.npmjs.com/package/@babel/preset-flow', {
+            name: terminalLink('Airbnb', 'https://www.npmjs.com/package/stylelint-config-airbnb', {
               fallback() {
-                return 'Flow';
+                return 'Airbnb';
               }
             }),
-            value: 'flow'
+            value: 'airbnb',
           },
           {
-            name: terminalLink('React', 'https://www.npmjs.com/package/@babel/preset-react', {
+            name: terminalLink('Idiomatic', 'https://www.npmjs.com/package/stylelint-config-idiomatic', {
               fallback() {
-                return 'React';
+                return 'Idiomatic';
               }
             }),
-            value: 'react',
+            value: 'idiomatic',
           },
           {
-            name: terminalLink('Stage-0', 'https://www.npmjs.com/package/@babel/preset-stage-0', {
+            name: terminalLink('Prettier', 'https://www.npmjs.com/package/stylelint-config-prettier', {
               fallback() {
-                return 'Stage-0';
+                return 'Prettier';
               }
             }),
-            value: 'stage-0',
+            value: 'prettier',
           },
           {
-            name: terminalLink('Stage-1', 'https://www.npmjs.com/package/@babel/preset-stage-1', {
+            name: terminalLink('Primer', 'https://www.npmjs.com/package/stylelint-config-primer', {
               fallback() {
-                return 'Stage-1';
+                return 'Primer';
               }
             }),
-            value: 'stage-1',
+            value: 'primer',
           },
           {
-            name: terminalLink('Stage-2', 'https://www.npmjs.com/package/@babel/preset-stage-2', {
+            name: terminalLink('Recommended', 'https://www.npmjs.com/package/stylelint-config-recommended', {
               fallback() {
-                return 'Stage-2';
+                return 'Recommended';
               }
             }),
-            value: 'stage-2',
+            value: 'recommended',
           },
           {
-            name: terminalLink('Stage-3', 'https://www.npmjs.com/package/@babel/preset-stage-3', {
+            name: terminalLink('Shopify', 'https://www.npmjs.com/package/stylelint-config-shopify', {
               fallback() {
-                return 'Stage-3';
+                return 'Shopify';
               }
             }),
-            value: 'stage-3',
+            value: 'shopify',
           },
           {
-            name: terminalLink('Stage-4', 'https://www.npmjs.com/package/@babel/preset-stage-4', {
+            name: terminalLink('Standard', 'https://www.npmjs.com/package/stylelint-config-standard', {
               fallback() {
-                return 'Stage-4';
+                return 'Standard';
               }
             }),
-            value: 'stage-4',
+            value: 'standard',
+          },
+          {
+            name: terminalLink('WordPress', 'https://www.npmjs.com/package/stylelint-config-wordpress', {
+              fallback() {
+                return 'WordPress';
+              }
+            }),
+            value: 'wordpress',
+          },
+          {
+            name: terminalLink('XO', 'https://www.npmjs.com/package/stylelint-config-xo', {
+              fallback() {
+                return 'XO';
+              }
+            }),
+            value: 'xo',
           }
         ]
       },
@@ -566,6 +648,14 @@ module.exports = class extends Generator {
       );
 
       this.fs.copyTpl(
+        this.templatePath('_stylelintrc.ejs'),
+        this.destinationPath(`.stylelintrc`),
+        {
+          pkg: props
+        }
+      );
+
+      this.fs.copyTpl(
         this.templatePath('_babelrc.ejs'),
         this.destinationPath(`.babelrc`),
         {
@@ -575,7 +665,15 @@ module.exports = class extends Generator {
 
       // Install latest versions of dependencies
       const dependencies = ['@babel/core', '@babel/preset-env', 'babel-loader', 'webpack', 'webpack-cli'];
-      let devDependencies = [ 'babel-eslint', 'eslint', `eslint-config-${props.eslintConfig}`, 'eslint-plugin-node', 'husky'];
+      let devDependencies = [
+        'babel-eslint',
+        'eslint',
+        `eslint-config-${props.eslintConfig}`,
+        'eslint-plugin-node',
+        'husky',
+        'stylelint',
+        `stylelint-config-${props.stylelintConfig}`
+      ];
 
       props.babelPresets.forEach( preset => {
         dependencies.push(`@babel/preset-${preset}`);

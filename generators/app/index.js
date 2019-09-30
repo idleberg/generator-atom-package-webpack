@@ -240,7 +240,6 @@ module.exports = class extends Generator {
           }
         ]
       },
-      ,
       {
         type: 'checkbox',
         name: 'babelPresets',
@@ -401,7 +400,6 @@ module.exports = class extends Generator {
           }
         ]
       },
-
       {
         type: 'list',
         name: 'stylelintConfig',
@@ -504,7 +502,7 @@ module.exports = class extends Generator {
         when: () => {
           return (process.env.EDITOR) ? true : false;
         }
-      },
+      }
     ]).then(props => {
 
       props.licenseURL = spdxLicenseList[props.license].url;

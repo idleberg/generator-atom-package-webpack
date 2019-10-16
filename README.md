@@ -29,7 +29,7 @@ npm i generator-atom-package-webpack -g
 
 ## Usage
 
-Create a new directory for your package and change into it
+Create a new directory for your package and change into it:
 
 ```sh
 cd ~/.atom/packages
@@ -37,7 +37,7 @@ mkdir my-package
 cd my-package
 ```
 
-Run the generator and follow its instructions. Use `--help`to list available flags.
+Next, run the generator and follow its instructions. Use `--help`to list available flags.
 
 ```sh
 yo atom-package-webpack

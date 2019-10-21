@@ -414,6 +414,7 @@ module.exports = class extends Generator {
         type: 'list',
         name: 'stylelintConfig',
         message: 'Stylelint Configuration',
+        default: 'Recommended',
         store: true,
         when: answers => answers.features.includes('styles'),
         choices: [

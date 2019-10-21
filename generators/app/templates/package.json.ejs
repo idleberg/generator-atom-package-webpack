@@ -8,7 +8,7 @@
         "dev": "webpack --watch --mode development",
         "lint:js": "eslint src/*.js",<% if (pkg.stylelintConfig) { %>
         "lint:styles": "stylelint styles/*.{css,less}",<% } %>
-        "lint": "<%= lintScript %>",
+        "lint": "<%= pkg.lintScript %>",
         "<%= pkg.buildScript %>": "npm run build",
         "test": "echo \"Error: no test specified\" && exit 1"
     },

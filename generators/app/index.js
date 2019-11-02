@@ -521,7 +521,7 @@ module.exports = class extends Generator {
       props.licenseName = spdxLicenseList[props.license].name;
       props.licenseText = spdxLicenseList[props.license].licenseText.replace(/\n{3,}/g, '\n\n');
       props.repositoryName = (props.name.startsWith('atom-')) ? props.name : `atom-${props.name}`;
-      props.lintScript = (props.features.includes('styles')) ? "concurrently 'npm run lint:js' 'npm run lint:styles'" : "npm run lint:js";
+      props.lintScript = (props.features.includes('styles')) ? "concurrently 'npm run lint:*" : "npm run lint:js";
 
       if (typeof props.atomDependencies !== 'undefined') {
         props.atomDependencies = props.atomDependencies.split(',');

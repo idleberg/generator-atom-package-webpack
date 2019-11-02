@@ -1,6 +1,6 @@
 {
   "name": "generator-atom-package-webpack",
-  "version": "0.12.0",
+  "version": "0.12.1",
   "description": "Generator for Atom packages written in JavaScript and compiled using Webpack",
   "files": [
     "generators"
@@ -8,7 +8,7 @@
   "scripts": {
     "lint:ejs": "ejslint generators/**/*.ejs",
     "lint:js": "eslint generators/**/*.js",
-    "lint": "concurrently 'npm run lint:js' 'npm run lint:ejs'",
+    "lint": "concurrently 'npm run lint:*js'",
     "test": "npm run lint"
   },
   "keywords": [
@@ -37,8 +37,8 @@
     "babel-eslint": "^10.0.3",
     "concurrently": "^5.0.0",
     "ejs-lint": "^0.3.0",
-    "eslint": "^6.5.0",
-    "husky": "^3.0.7"
+    "eslint": "^6.5.1",
+    "husky": "^3.0.9"
   },
   "husky": {
     "hooks": {

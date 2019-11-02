@@ -684,10 +684,15 @@ module.exports = class extends Generator {
         'eslint',
         `eslint-config-${props.eslintConfig}`,
         'eslint-plugin-node',
-        'husky',
-        'stylelint',
-        `stylelint-config-${props.stylelintConfig}`
+        'husky'
       ];
+
+      if (props.features.includes('styles')) {
+        devDependencies.push(
+          'stylelint',
+          `stylelint-config-${props.stylelintConfig}`
+        );
+      }
 
       props.babelPresets.forEach( preset => {
         dependencies.push(`@babel/preset-${preset}`);
